@@ -5,7 +5,7 @@ import { findByToken } from "@/lib/booking";
 import { getSettings } from "@/lib/settings";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { isTokenShape } from "@/lib/tokens";
-import { addDays, minutesUntil, formatDateTime, formatDuration, formatPrice, todayStr } from "@/lib/time";
+import { addDays, minutesUntil, formatDateTime, formatDuration, todayStr } from "@/lib/time";
 import { Shell } from "@/components/site/Shell";
 import { ManageBooking } from "@/components/booking/ManageBooking";
 
@@ -32,7 +32,7 @@ export default async function Page({ params }: { params: Promise<{ token: string
           {[
             ["Servicio", a.serviceName],
             ["Duración", formatDuration(a.durationMin)],
-            ["Precio", formatPrice(a.priceCents)],
+            ["Pago", "En efectivo, en la barbería"],
             ["A nombre de", a.customer.name],
             ["Dirección", `${s.address}, ${s.postalCity}`],
             ["Teléfono de la barbería", s.phone],

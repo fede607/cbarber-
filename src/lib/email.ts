@@ -2,12 +2,11 @@ import "server-only";
 import { Resend } from "resend";
 import { db } from "./db";
 import { getSettings } from "./settings";
-import { formatDateTime, formatDuration, formatPrice } from "./time";
+import { formatDateTime, formatDuration } from "./time";
 
 type Appt = {
   id: string;
   serviceName: string;
-  priceCents: number;
   durationMin: number;
   startsAt: Date;
   customer: { name: string; email: string };
@@ -88,7 +87,7 @@ export async function sendAppointmentEmail(type: Exclude<EmailType, "admin_notic
     ["Servicio", a.serviceName],
     ["Día y hora", formatDateTime(a.startsAt)],
     ["Duración", formatDuration(a.durationMin)],
-    ["Precio", formatPrice(a.priceCents)],
+    ["Pago", "En efectivo, en la barbería"],
     ["Dirección", `${s.address}, ${s.postalCity}`],
   ];
   const first = a.customer.name.split(" ")[0];

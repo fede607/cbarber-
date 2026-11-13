@@ -9,6 +9,7 @@
   --color-ash: #a69e92;
   --color-brass: #c6a15b;
   --color-brass-deep: #8e6f35;
+  --color-soft: #d5cec2;
   --color-danger: #e2806f;
   --color-ok: #8fbf9a;
 
@@ -17,6 +18,26 @@
   --font-mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Light sections: the same tokens, inverted. Everything inside follows automatically. */
+.light {
+  --color-ink: #f2eee6;
+  --color-coal: #e8e2d6;
+  --color-graphite: #dcd5c7;
+  --color-line: #cfc7b8;
+  --color-bone: #0c0b0a;
+  --color-ash: #5d564c;
+  --color-soft: #37322c;
+  --color-brass: #7a5d27;
+  --color-brass-deep: #5c4519;
+  --color-danger: #a3392a;
+  color-scheme: light;
+}
+.brass-band {
+  --color-bone: #0c0b0a;
+  background: #c6a15b;
+  color: #0c0b0a;
 }
 
 html {
@@ -192,6 +213,70 @@ body {
     animation: none;
   }
 
+  /* Photo with a gradient that melts into the section behind it. */
+  .photo {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-coal);
+  }
+  .photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(to top, color-mix(in srgb, #0c0b0a 88%, transparent) 0%, color-mix(in srgb, #0c0b0a 30%, transparent) 38%, transparent 68%);
+  }
+  .photo > img {
+    transition: transform 900ms var(--ease-out-soft);
+  }
+  .photo:hover > img {
+    transform: scale(1.05);
+  }
+
+  .marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 38s linear infinite;
+  }
+  .marquee:hover {
+    animation-play-state: paused;
+  }
+
+  /* Service row: a brass sweep follows the pointer in. */
+  .row-sweep {
+    position: relative;
+    isolation: isolate;
+  }
+  .row-sweep::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--color-bone);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 380ms var(--ease-out-soft);
+  }
+  .row-sweep:hover::before,
+  .row-sweep:focus-visible::before {
+    transform: scaleY(1);
+  }
+  .row-sweep:hover,
+  .row-sweep:focus-visible {
+    color: var(--color-ink);
+  }
+  .row-sweep:hover .row-muted,
+  .row-sweep:focus-visible .row-muted {
+    color: color-mix(in srgb, var(--color-ink) 70%, transparent);
+  }
+
+  .map-frame {
+    filter: grayscale(0.4) invert(0.92) hue-rotate(180deg);
+  }
+  .light .map-frame {
+    filter: grayscale(0.5);
+  }
+
   .card {
     background: var(--color-coal);
     border: 1px solid var(--color-line);
@@ -231,7 +316,7 @@ body {
   }
   .prose-legal p,
   .prose-legal li {
-    color: #d5cec2;
+    color: var(--color-soft);
     max-width: 68ch;
   }
   .prose-legal p {
@@ -246,6 +331,12 @@ body {
     color: var(--color-brass);
     text-decoration: underline;
     text-underline-offset: 3px;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
   }
 }
 

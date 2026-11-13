@@ -27,13 +27,27 @@ async function main() {
   if ((await db.service.count()) === 0) {
     await db.service.createMany({
       data: [
-        { name: "Corte clásico", description: "Tijera y máquina, lavado y peinado.", priceCents: 1500, durationMin: 30, sortOrder: 1 },
-        { name: "Degradado", description: "Fade bajo, medio o alto, perfilado a navaja.", priceCents: 1700, durationMin: 40, sortOrder: 2 },
-        { name: "Corte y barba", description: "Corte completo y arreglo de barba con toalla caliente.", priceCents: 2300, durationMin: 55, sortOrder: 3 },
-        { name: "Arreglo de barba", description: "Rebaje, perfilado a navaja y aceite.", priceCents: 1000, durationMin: 20, sortOrder: 4 },
-        { name: "Afeitado clásico", description: "Navaja, toalla caliente y bálsamo.", priceCents: 1400, durationMin: 30, sortOrder: 5 },
-        { name: "Corte infantil", description: "Hasta 12 años.", priceCents: 1200, durationMin: 25, sortOrder: 6 },
+        { name: "Corte clásico", description: "Tijera y máquina, lavado y peinado.", priceCents: 0, durationMin: 30, sortOrder: 1 },
+        { name: "Degradado", description: "Fade bajo, medio o alto, perfilado a navaja.", priceCents: 0, durationMin: 40, sortOrder: 2 },
+        { name: "Corte y barba", description: "Corte completo y arreglo de barba con toalla caliente.", priceCents: 0, durationMin: 55, sortOrder: 3 },
+        { name: "Arreglo de barba", description: "Rebaje, perfilado a navaja y aceite.", priceCents: 0, durationMin: 20, sortOrder: 4 },
+        { name: "Afeitado clásico", description: "Navaja, toalla caliente y bálsamo.", priceCents: 0, durationMin: 30, sortOrder: 5 },
+        { name: "Corte infantil", description: "Hasta 12 años.", priceCents: 0, durationMin: 25, sortOrder: 6 },
       ],
+    });
+  }
+
+  // Plantillas ocultas: muestran el formato. No son reseñas reales y no aparecen en la web.
+  if ((await db.review.count()) === 0) {
+    await db.review.createMany({
+      data: [1, 2, 3].map((n) => ({
+        author: `Nombre del cliente ${n}`,
+        text: "Plantilla de ejemplo. Sustituye este texto por una reseña real, copiada tal cual de tu ficha de Google, y pulsa «Publicar en la web».",
+        rating: 5,
+        source: "Google",
+        visible: false,
+        sortOrder: n,
+      })),
     });
   }
 

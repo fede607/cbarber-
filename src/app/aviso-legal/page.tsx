@@ -27,12 +27,12 @@ export default async function Page() {
         </ul>
 
         <h2>Objeto</h2>
-        <p>Esta web informa sobre los servicios de {s.businessName} y permite reservar, cambiar y cancelar citas. Reservar es gratuito; el servicio se paga en el establecimiento.</p>
+        <p>Esta web informa sobre los servicios de {s.businessName} y permite reservar, cambiar y cancelar citas. Reservar es gratuito. El precio depende del servicio, se informa en el establecimiento antes de empezar y se paga allí en efectivo.</p>
 
         <h2>Reservas y cancelaciones</h2>
         <p>
           Al confirmar una reserva, la hora queda bloqueada para ti. Puedes cambiarla o cancelarla desde el enlace del email de confirmación hasta {Math.round(s.cancelLimitMin / 60)} horas antes de la cita.
-          Después de ese plazo, contacta por teléfono. Los precios mostrados incluyen impuestos y pueden cambiar; se aplica el precio vigente en el momento de reservar.
+          Después de ese plazo, contacta por teléfono.
         </p>
 
         <h2>Propiedad intelectual</h2>

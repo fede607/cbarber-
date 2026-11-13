@@ -7,7 +7,7 @@ Todo lo siguiente es provisional y se cambia desde el panel, sin tocar código.
 | Nombre, NIF y domicilio del titular | Contenido → Datos legales | Obligatorio por ley (LSSI) en el aviso legal |
 | Dirección, teléfono, email, coordenadas del mapa | Contenido → Contacto | Ahora son datos de ejemplo |
 | Fotos reales (portada, Carlos, galería) | Contenido | Ahora son ilustraciones provisionales |
-| Servicios, precios y duraciones reales | Servicios | Los actuales son orientativos |
+| Servicios y duraciones reales | Servicios | Los actuales son orientativos. La web no muestra precios |
 | Horario real | Horarios | El actual es orientativo |
 | Valoración y número de reseñas | Contenido → Valoración | El 4,9 está sin verificar: debe coincidir con la ficha de Google |
 | Reseñas | Contenido → Reseñas | La sección no aparece hasta que se añadan reseñas reales |

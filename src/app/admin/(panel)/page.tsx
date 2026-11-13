@@ -21,7 +21,7 @@ export default async function Page() {
   const d = await getDashboard();
   return (
     <>
-      <PageTitle title="Resumen" intro="Los ingresos cuentan solo las citas marcadas como completadas.">
+      <PageTitle title="Resumen" intro="La facturación suma el importe que anotas al marcar cada cita como completada.">
         <Link href="/admin/reservas/nueva" className="btn btn-primary btn-sm">
           Nueva reserva
         </Link>
@@ -36,7 +36,7 @@ export default async function Page() {
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <Stat label="Facturación de hoy" value={formatPrice(d.revenue.day)} />
         <Stat label="Facturación de la semana" value={formatPrice(d.revenue.week)} note="De lunes a domingo" />
-        <Stat label="Facturación del mes" value={formatPrice(d.revenue.month)} note={`${formatPrice(d.revenue.expected)} más en citas pendientes`} />
+        <Stat label="Facturación del mes" value={formatPrice(d.revenue.month)} note="Lo cobrado en efectivo este mes" />
         <Stat label="Reservas del mes" value={String(d.counts.total)} note="Incluye canceladas" />
         <Stat label="Citas pendientes" value={String(d.counts.pending)} note="De ahora en adelante" />
         <Stat label="Completadas este mes" value={String(d.counts.completed)} />

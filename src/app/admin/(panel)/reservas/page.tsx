@@ -79,7 +79,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<SP>
                 <th>Hora</th>
                 <th>Cliente</th>
                 <th>Servicio</th>
-                <th>Precio</th>
+                <th>Cobrado</th>
                 <th>Estado</th>
                 <th>
                   <span className="sr-only">Acciones</span>
@@ -98,7 +98,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<SP>
                     <div className="num text-xs text-ash">{a.customer.phone}</div>
                   </td>
                   <td>{a.serviceName}</td>
-                  <td className="num">{formatPrice(a.priceCents)}</td>
+                  <td className="num">{a.status === "COMPLETED" ? formatPrice(a.priceCents) : "—"}</td>
                   <td>
                     <StatusBadge status={a.status} />
                   </td>
@@ -106,10 +106,11 @@ export default async function Page({ searchParams }: { searchParams: Promise<SP>
                     <div className="flex justify-end gap-2">
                       {a.status === "PENDING" && (
                         <>
-                          <form action={setStatusAction}>
+                          <form action={setStatusAction} className="flex gap-2">
                             <input type="hidden" name="id" value={a.id} />
                             <input type="hidden" name="status" value="COMPLETED" />
                             <input type="hidden" name="returnTo" value={returnTo} />
+                            <input name="amount" inputMode="decimal" aria-label={`Importe cobrado a ${a.customer.name}, en euros`} placeholder="€" defaultValue={a.priceCents ? String(a.priceCents / 100).replace(".", ",") : ""} className="field num !min-h-9 w-16 !px-2 !py-1 text-sm" />
                             <button className="btn btn-ghost btn-sm">Completar</button>
                           </form>
                           <form action={setStatusAction}>

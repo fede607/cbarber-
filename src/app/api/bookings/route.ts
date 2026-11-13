@@ -25,7 +25,6 @@ export async function POST(req: Request) {
           serviceName: appointment.serviceName,
           startsAt: appointment.startsAt,
           durationMin: appointment.durationMin,
-          priceCents: appointment.priceCents,
         },
       },
       { status: 201 },

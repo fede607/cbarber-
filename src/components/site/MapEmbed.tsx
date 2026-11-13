@@ -14,7 +14,7 @@ export function MapEmbed({ lat, lng, label }: { lat: number; lng: number; label:
   return (
     <div className="relative aspect-[4/3] w-full overflow-hidden border border-line bg-coal md:aspect-auto md:h-full md:min-h-[26rem]">
       {show ? (
-        <iframe title={`Mapa: ${label}`} src={src} className="h-full w-full grayscale-[0.4] invert-[0.92] hue-rotate-180" loading="lazy" referrerPolicy="no-referrer" />
+        <iframe title={`Mapa: ${label}`} src={src} className="map-frame h-full w-full" loading="lazy" referrerPolicy="no-referrer" />
       ) : (
         <div className="grid h-full place-items-center p-6 text-center">
           <div>

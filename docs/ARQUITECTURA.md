@@ -37,8 +37,8 @@ Las fechas se guardan en UTC y se calculan en `Europe/Madrid`.
 ## Decisiones
 
 - **Sin cuentas de cliente.** El cliente gestiona su cita con un enlace privado. El token se deriva del secreto del servidor (HMAC) y en la base de datos solo se guarda su hash.
-- **El precio de una cita no cambia** aunque luego se edite el servicio: así la facturación histórica es fiable.
-- **Los ingresos cuentan solo citas completadas.** Las pendientes se muestran aparte como previsión.
+- **La web no muestra precios.** Al completar una cita se anota el importe cobrado en efectivo, y esa cifra alimenta la facturación.
+- **Los ingresos cuentan solo citas completadas**, con el importe que anota Carlos.
 - **Mapa de OpenStreetMap cargado bajo demanda** y **fuentes servidas desde el propio dominio**: la web no usa cookies de terceros ni necesita aviso de cookies.
 - **Recordatorios**: tarea diaria a las 17:00 UTC que avisa de las citas de las siguientes 36 horas. Con Vercel Pro puede ser horaria (ver despliegue).
 

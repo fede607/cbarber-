@@ -19,7 +19,7 @@ type FD = FormData;
 const text = (max: number, min = 0) => z.string().trim().min(min).max(max).refine((s) => !/[<>\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(s), "Contiene caracteres no permitidos");
 const url = z.string().trim().max(500).refine((s) => s === "" || s.startsWith("/") || /^https:\/\/[^\s<>"']+$/.test(s), "La dirección debe empezar por https://");
 const int = (min: number, max: number) => z.coerce.number().int().min(min).max(max);
-const euros = z.string().trim().transform((s) => Math.round(Number(s.replace(",", ".")) * 100)).refine((n) => Number.isFinite(n) && n >= 0 && n <= 100_000, "Precio no válido");
+const euros = z.string().trim().optional().default("0").transform((s) => Math.round(Number(s.replace(",", ".")) * 100)).refine((n) => Number.isFinite(n) && n >= 0 && n <= 100_000, "Precio no válido");
 const bool = z.preprocess((v) => v === "on" || v === "true", z.boolean());
 
 const obj = (fd: FD) => Object.fromEntries(fd.entries());
@@ -97,11 +97,15 @@ export async function updateAppointmentAction(fd: FD) {
   back(path, "ok", "Cambios guardados");
 }
 
-const statusChange = z.object({ id: idStr, status: z.enum(["PENDING", "COMPLETED", "CANCELLED", "NO_SHOW"]), notify: bool.optional(), returnTo: z.string().startsWith("/admin").max(300).optional() });
+const optionalEuros = z.string().trim().optional().transform((s) => (s ? Math.round(Number(s.replace(",", ".")) * 100) : undefined)).refine((n) => n === undefined || (Number.isFinite(n) && n >= 0 && n <= 100_000), "Importe no válido");
+
+const statusChange = z.object({ id: idStr, amount: optionalEuros, status: z.enum(["PENDING", "COMPLETED", "CANCELLED", "NO_SHOW"]), notify: bool.optional(), returnTo: z.string().startsWith("/admin").max(300).optional() });
 
 export async function setStatusAction(fd: FD) {
   await requireAdmin();
-  const d = statusChange.parse(obj(fd));
+  const parsed = statusChange.safeParse(obj(fd));
+  if (!parsed.success) back("/admin/reservas", "error", parsed.error.issues[0]?.message ?? "Datos no válidos");
+  const d = parsed.data;
   const path = d.returnTo ?? "/admin/reservas";
   try {
     if (d.status === "CANCELLED") {
@@ -111,7 +115,7 @@ export async function setStatusAction(fd: FD) {
       // Re-activating a cancelled appointment can collide with a newer one: the database constraint decides.
       await db.appointment.update({
         where: { id: d.id },
-        data: { status: d.status, completedAt: d.status === "COMPLETED" ? new Date() : null, cancelledAt: null },
+        data: { status: d.status, completedAt: d.status === "COMPLETED" ? new Date() : null, cancelledAt: null, ...(d.status === "COMPLETED" && d.amount !== undefined ? { priceCents: d.amount } : {}) },
       });
     }
   } catch (e) {
@@ -330,6 +334,27 @@ export async function addReviewAction(fd: FD) {
     fail("/admin/contenido", e);
   }
   back("/admin/contenido#resenas", "ok", "Reseña añadida");
+}
+
+export async function toggleReviewAction(fd: FD) {
+  await requireAdmin();
+  const id = idStr.parse(fd.get("id"));
+  const r = await db.review.findUniqueOrThrow({ where: { id } });
+  await db.review.update({ where: { id }, data: { visible: !r.visible } });
+  back("/admin/contenido#resenas", "ok", r.visible ? "Reseña oculta" : "Reseña publicada en la web");
+}
+
+const reviewEdit = z.object({ id: idStr, author: text(60, 2), text: text(600, 5), rating: int(1, 5), source: text(30).optional().default("Google") });
+
+export async function updateReviewAction(fd: FD) {
+  await requireAdmin();
+  try {
+    const { id, ...d } = reviewEdit.parse(obj(fd));
+    await db.review.update({ where: { id }, data: d });
+  } catch (e) {
+    fail("/admin/contenido", e);
+  }
+  back("/admin/contenido#resenas", "ok", "Reseña guardada");
 }
 
 export async function removeReviewAction(fd: FD) {

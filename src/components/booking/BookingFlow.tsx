@@ -6,7 +6,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Check } from "lucide-react";
 import { DateTimePicker, type Picked } from "./DateTimePicker";
 
-type Service = { id: string; name: string; description: string; priceLabel: string; durationLabel: string };
+type Service = { id: string; name: string; description: string; durationLabel: string };
 type Done = { token: string; emailSent: boolean; when: string };
 
 const STEPS = ["Servicio", "Día y hora", "Tus datos"];
@@ -141,9 +141,8 @@ export function BookingFlow({ services, initialServiceId, today, lastDate }: { s
                     className={`card grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 p-5 text-left transition-colors hover:border-brass ${s.id === serviceId ? "border-brass" : ""}`}
                   >
                     <span className="font-display text-2xl">{s.name}</span>
-                    <span className="num text-lg text-brass">{s.priceLabel}</span>
-                    <span className="text-sm text-ash">{s.description}</span>
-                    <span className="num text-right text-sm text-ash">{s.durationLabel}</span>
+                    <span className="num text-sm text-brass">{s.durationLabel}</span>
+                    <span className="col-span-2 text-sm text-ash">{s.description}</span>
                   </button>
                 ))}
               </div>
@@ -154,7 +153,7 @@ export function BookingFlow({ services, initialServiceId, today, lastDate }: { s
             <div>
               <h2 className="display mb-2 text-3xl md:text-4xl">¿Cuándo te viene bien?</h2>
               <p className="mb-8 text-ash">
-                {service.name} · {service.durationLabel} · {service.priceLabel}
+                {service.name} · {service.durationLabel}
               </p>
               <DateTimePicker serviceId={serviceId} today={today} lastDate={lastDate} value={picked} onChange={setPicked} />
               <div className="mt-10 flex flex-wrap justify-between gap-3">
@@ -214,9 +213,9 @@ export function BookingFlow({ services, initialServiceId, today, lastDate }: { s
                   <Row k="Servicio" v={service.name} />
                   <Row k="Cuándo" v={<span className="capitalize">{whenLabel(picked)}</span>} />
                   <Row k="Duración" v={service.durationLabel} />
-                  <Row k="Precio" v={service.priceLabel} />
+                  <Row k="Pago" v="En efectivo, allí" />
                 </dl>
-                <p className="mt-4 text-sm text-ash">Se paga en la barbería.</p>
+                <p className="mt-4 text-sm text-ash">El precio depende del corte. Carlos te lo dice en la barbería.</p>
                 <button type="submit" className="btn btn-primary mt-6 w-full" disabled={sending}>
                   {sending ? "Reservando…" : "Confirmar reserva"}
                 </button>

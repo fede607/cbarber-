@@ -4,7 +4,7 @@ import { getSettings } from "@/lib/settings";
 import { F, Flash, PageTitle, Section } from "@/components/admin/ui";
 import { ConfirmButton } from "@/components/admin/ConfirmButton";
 import { ImageField } from "@/components/admin/ImageField";
-import { addGalleryImageAction, addReviewAction, removeGalleryImageAction, removeReviewAction, saveContentAction } from "../../actions";
+import { addGalleryImageAction, addReviewAction, removeGalleryImageAction, removeReviewAction, saveContentAction, toggleReviewAction, updateReviewAction } from "../../actions";
 
 export const metadata = { title: "Contenido" };
 
@@ -142,7 +142,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ o
         </ul>
       </Section>
 
-      <Section id="resenas" title="Reseñas" intro="Copia aquí reseñas reales de tus clientes, tal como las escribieron. Si no añades ninguna, la sección no aparece en la web.">
+      <Section id="resenas" title="Reseñas" intro="Copia aquí reseñas reales de tus clientes, tal como las escribieron en Google. Solo las marcadas como publicadas aparecen en la web; si no hay ninguna, la sección no se muestra. Las plantillas de ejemplo están ocultas: sustitúyelas por reseñas reales antes de publicarlas.">
         <form action={addReviewAction} className="grid gap-4 md:grid-cols-4">
           <F label="Autor">
             <input name="author" required maxLength={60} className="field" />
@@ -164,16 +164,30 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ o
         </form>
         <ul className="mt-6">
           {reviews.map((r) => (
-            <li key={r.id} className="flex items-start justify-between gap-4 border-t border-line py-3 text-sm">
-              <p>
-                <span className="font-medium">{r.author}</span> <span className="text-ash">· {r.rating}/5 · {r.source}</span>
-                <br />
-                <span className="text-ash">{r.text}</span>
-              </p>
-              <form action={removeReviewAction}>
+            <li key={r.id} className="border-t border-line py-5">
+              <p className={`mb-3 text-xs ${r.visible ? "text-ok" : "text-brass"}`}>{r.visible ? "Publicada en la web" : "Oculta: no aparece en la web"}</p>
+              <form action={updateReviewAction} className="grid gap-3 md:grid-cols-4">
                 <input type="hidden" name="id" value={r.id} />
-                <ConfirmButton message="¿Eliminar esta reseña?">Eliminar</ConfirmButton>
+                <input name="author" required maxLength={60} defaultValue={r.author} aria-label="Autor" className="field" />
+                <select name="rating" defaultValue={String(r.rating)} aria-label="Estrellas" className="field">
+                  {[5, 4, 3, 2, 1].map((n) => (
+                    <option key={n}>{n}</option>
+                  ))}
+                </select>
+                <input name="source" maxLength={30} defaultValue={r.source} aria-label="Dónde se publicó" className="field md:col-span-2" />
+                <textarea name="text" required maxLength={600} defaultValue={r.text} aria-label="Texto de la reseña" className="field md:col-span-4" />
+                <button className="btn btn-ghost btn-sm md:justify-self-start">Guardar</button>
               </form>
+              <div className="mt-3 flex gap-2">
+                <form action={toggleReviewAction}>
+                  <input type="hidden" name="id" value={r.id} />
+                  <button className="btn btn-ghost btn-sm">{r.visible ? "Ocultar" : "Publicar en la web"}</button>
+                </form>
+                <form action={removeReviewAction}>
+                  <input type="hidden" name="id" value={r.id} />
+                  <ConfirmButton message="¿Eliminar esta reseña?">Eliminar</ConfirmButton>
+                </form>
+              </div>
             </li>
           ))}
         </ul>

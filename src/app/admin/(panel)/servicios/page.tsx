@@ -16,8 +16,8 @@ function ServiceForm({ s }: { s?: S }) {
       <F label="Nombre" className="md:col-span-3">
         <input name="name" required maxLength={60} defaultValue={s?.name} className="field" />
       </F>
-      <F label="Precio (€)" className="md:col-span-1">
-        <input name="price" required inputMode="decimal" defaultValue={s ? (s.priceCents / 100).toString().replace(".", ",") : ""} className="field num" />
+      <F label="Precio habitual (€)" hint="Opcional. Solo lo ves tú." className="md:col-span-1">
+        <input name="price" inputMode="decimal" defaultValue={s && s.priceCents ? (s.priceCents / 100).toString().replace(".", ",") : ""} className="field num" />
       </F>
       <F label="Duración (min)" className="md:col-span-1">
         <input name="durationMin" type="number" required min={5} max={480} step={5} defaultValue={s?.durationMin ?? 30} className="field num" />
@@ -48,7 +48,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ o
   const services = await db.service.findMany({ where: { deletedAt: null }, orderBy: [{ sortOrder: "asc" }, { name: "asc" }] });
   return (
     <>
-      <PageTitle title="Servicios" intro="Cambiar el precio o la duración afecta a las reservas nuevas. Las citas ya hechas conservan el precio con el que se reservaron." />
+      <PageTitle title="Servicios" intro="La web muestra el nombre, la descripción y la duración, nunca el precio. El precio habitual es solo una ayuda para ti: aparece ya escrito cuando marcas una cita como completada, y lo puedes cambiar por lo que hayas cobrado." />
       <Flash sp={sp} />
       <Section title="Nuevo servicio">
         <ServiceForm />

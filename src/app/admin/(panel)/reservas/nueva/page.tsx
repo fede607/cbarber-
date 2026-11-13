@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { requireAdmin } from "@/auth";
 import { db } from "@/lib/db";
-import { formatDuration, formatPrice, todayStr } from "@/lib/time";
+import { formatDuration, todayStr } from "@/lib/time";
 import { F, Flash, PageTitle } from "@/components/admin/ui";
 import { createAppointmentAction } from "../../../actions";
 
@@ -20,7 +20,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ o
           <select name="serviceId" required className="field">
             {services.map((s) => (
               <option key={s.id} value={s.id}>
-                {s.name} · {formatDuration(s.durationMin)} · {formatPrice(s.priceCents)}
+                {s.name} · {formatDuration(s.durationMin)}
               </option>
             ))}
           </select>

@@ -52,7 +52,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
                 <select name="serviceId" defaultValue={a.serviceId} className="field" disabled={a.status === "CANCELLED"}>
                   {services.map((s) => (
                     <option key={s.id} value={s.id}>
-                      {s.name} · {formatDuration(s.durationMin)} · {formatPrice(s.priceCents)}
+                      {s.name} · {formatDuration(s.durationMin)}
                     </option>
                   ))}
                 </select>
@@ -83,7 +83,17 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
           <Section title="Estado">
             <div className="flex flex-wrap gap-3">
-              {a.status !== "COMPLETED" && a.status !== "CANCELLED" && statusForm("COMPLETED", "Marcar como completada", "btn btn-primary btn-sm")}
+              {a.status !== "CANCELLED" && (
+                <form action={setStatusAction} className="flex w-full flex-wrap items-end gap-3 border-b border-line pb-5">
+                  <input type="hidden" name="id" value={a.id} />
+                  <input type="hidden" name="status" value="COMPLETED" />
+                  <input type="hidden" name="returnTo" value={returnTo} />
+                  <F label="Importe cobrado (€)" hint="En efectivo. Es lo que cuenta en la facturación.">
+                    <input name="amount" inputMode="decimal" defaultValue={a.priceCents ? String(a.priceCents / 100).replace(".", ",") : ""} className="field num w-40" />
+                  </F>
+                  <button className="btn btn-primary btn-sm mb-6">{a.status === "COMPLETED" ? "Corregir importe" : "Marcar como completada"}</button>
+                </form>
+              )}
               {a.status === "PENDING" && statusForm("NO_SHOW", "No se presentó")}
               {a.status !== "PENDING" && statusForm("PENDING", "Volver a pendiente")}
               {a.status !== "CANCELLED" && statusForm("CANCELLED", "Cancelar cita", "btn btn-danger btn-sm", "¿Cancelar esta cita? Se avisará al cliente por email.")}
@@ -113,8 +123,8 @@ export default async function Page({ params, searchParams }: { params: Promise<{
                 </dd>
               </div>
               <div>
-                <dt className="text-ash">Precio guardado</dt>
-                <dd className="num">{formatPrice(a.priceCents)}</dd>
+                <dt className="text-ash">Cobrado</dt>
+                <dd className="num">{a.status === "COMPLETED" ? formatPrice(a.priceCents) : "Pendiente de cobrar"}</dd>
               </div>
             </dl>
           </Section>
