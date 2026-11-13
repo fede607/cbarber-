@@ -1,0 +1,196 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum AppointmentStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum AppointmentSource {
+  WEB
+  ADMIN
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  totpSecret   String?
+  totpEnabled  Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Setting {
+  id               Int     @id @default(1)
+  businessName     String  @default("Barbería Carlos")
+  heroTitle        String  @default("Una silla. Un barbero. Tu corte.")
+  heroSubtitle     String  @default("Cortes clásicos, degradados y arreglo de barba con cita previa. Sin prisas y sin esperas.")
+  aboutTitle       String  @default("Carlos, detrás de la silla")
+  aboutText        String  @default("Carlos atiende a una sola persona cada vez. Empieza escuchando lo que quieres, mira cómo crece tu pelo y termina cuando el corte está bien, no cuando suena el reloj.\n\nTrabaja con tijera, máquina y navaja, y solo con cita: así la silla es tuya durante todo el servicio.")
+  heroImage        String  @default("/placeholders/hero.svg")
+  aboutImage       String  @default("/placeholders/about.svg")
+  address          String  @default("Calle Ejemplo 12")
+  postalCity       String  @default("28000 Madrid")
+  phone            String  @default("+34 600 000 000")
+  whatsapp         String  @default("")
+  contactEmail     String  @default("hola@example.com")
+  instagram        String  @default("")
+  tiktok           String  @default("")
+  mapLat           Float   @default(40.4168)
+  mapLng           Float   @default(-3.7038)
+  ratingValue      Float   @default(4.9)
+  ratingCount      Int     @default(0)
+  reviewsUrl       String  @default("")
+  showRating       Boolean @default(true)
+  slotStepMin      Int     @default(15)
+  minNoticeMin     Int     @default(120)
+  maxAdvanceDays   Int     @default(45)
+  cancelLimitMin   Int     @default(120)
+  legalOwnerName   String  @default("[Nombre y apellidos del titular]")
+  legalOwnerId     String  @default("[NIF]")
+  legalAddress     String  @default("[Domicilio del titular]")
+  updatedAt        DateTime @updatedAt
+}
+
+model Service {
+  id           String        @id @default(cuid())
+  name         String
+  description  String        @default("")
+  priceCents   Int
+  durationMin  Int
+  imageUrl     String        @default("")
+  active       Boolean       @default(true)
+  sortOrder    Int           @default(0)
+  deletedAt    DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  appointments Appointment[]
+}
+
+model GalleryImage {
+  id        String   @id @default(cuid())
+  url       String
+  alt       String   @default("")
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  author    String
+  text      String
+  rating    Int      @default(5)
+  source    String   @default("Google")
+  visible   Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+/// One row per weekday (0 = Sunday … 6 = Saturday). Minutes from midnight, Europe/Madrid.
+model WeeklyHours {
+  weekday       Int     @id
+  closed        Boolean @default(false)
+  openMin       Int     @default(600)
+  closeMin      Int     @default(1200)
+  breakStartMin Int?
+  breakEndMin   Int?
+}
+
+/// Whole day closed (festivo, vacaciones). date = YYYY-MM-DD in Europe/Madrid.
+model ClosedDay {
+  date   String @id
+  reason String @default("")
+}
+
+/// Blocked time range inside an otherwise open day.
+model TimeBlock {
+  id       String   @id @default(cuid())
+  startsAt DateTime @db.Timestamptz(3)
+  endsAt   DateTime @db.Timestamptz(3)
+  reason   String   @default("")
+
+  @@index([startsAt, endsAt])
+}
+
+model Customer {
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  phone        String
+  consentAt    DateTime?
+  anonymizedAt DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  appointments Appointment[]
+}
+
+model Appointment {
+  id              String            @id @default(cuid())
+  customerId      String
+  customer        Customer          @relation(fields: [customerId], references: [id])
+  serviceId       String
+  service         Service           @relation(fields: [serviceId], references: [id])
+  /// Snapshot so later price/duration edits never rewrite history.
+  serviceName     String
+  priceCents      Int
+  durationMin     Int
+  startsAt        DateTime          @db.Timestamptz(3)
+  endsAt          DateTime          @db.Timestamptz(3)
+  status          AppointmentStatus @default(PENDING)
+  source          AppointmentSource @default(WEB)
+  manageTokenHash String            @unique
+  notes           String            @default("")
+  reminderSentAt  DateTime?
+  cancelledAt     DateTime?
+  completedAt     DateTime?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  emails          EmailLog[]
+
+  @@index([startsAt])
+  @@index([status, startsAt])
+  @@index([customerId])
+}
+
+model EmailLog {
+  id            String       @id @default(cuid())
+  appointmentId String?
+  appointment   Appointment? @relation(fields: [appointmentId], references: [id], onDelete: SetNull)
+  type          String
+  recipient     String
+  subject       String
+  status        String
+  providerId    String?
+  error         String?
+  createdAt     DateTime     @default(now())
+
+  @@index([createdAt])
+}
+
+model RateLimit {
+  key       String   @id
+  count     Int
+  expiresAt DateTime
+
+  @@index([expiresAt])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  detail    String   @default("")
+  ip        String   @default("")
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
