@@ -1,0 +1,470 @@
+<title>Playbook de ventas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>  /* Layout: a long, scannable field manual. One 1080px column of full-width bands, alternating paper and white.
+     Semantic colour does the teaching: coral = dolor, green = solución, indigo = método. */
+  :root {
+    --bg:#F3F5FA; --bg-alt:#FFFFFF; --card:#FFFFFF; --card-alt:#F3F5FA; --ink:#0E1630; --muted:#586179; --line:#DDE2EE;
+    --accent:#3B39E8; --accent-ink:#FFFFFF; --accent-soft:#E7E7FD;
+    --pain:#C62F3A; --pain-soft:#FCE9EA; --good:#0B8A4D; --good-soft:#DDF5E8; --warn:#9A5B00; --warn-soft:#FCEFD5;
+    --display:"Bricolage Grotesque","Inter",system-ui,sans-serif; --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+    --shadow:0 1px 2px rgba(14,22,48,.06),0 6px 20px rgba(14,22,48,.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:#0A0F1F; --bg-alt:#0E1530; --card:#131B38; --card-alt:#0E1530; --ink:#EDF0FA; --muted:#9AA5C0; --line:#232C50;
+      --accent:#8B8CFF; --accent-ink:#0A0F1F; --accent-soft:#1D2250;
+      --pain:#FF8087; --pain-soft:#3A1B26; --good:#46D69E; --good-soft:#123329; --warn:#F2B35B; --warn-soft:#3A2B10;
+      --shadow:none; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:#0A0F1F; --bg-alt:#0E1530; --card:#131B38; --card-alt:#0E1530; --ink:#EDF0FA; --muted:#9AA5C0; --line:#232C50;
+    --accent:#8B8CFF; --accent-ink:#0A0F1F; --accent-soft:#1D2250;
+    --pain:#FF8087; --pain-soft:#3A1B26; --good:#46D69E; --good-soft:#123329; --warn:#F2B35B; --warn-soft:#3A2B10;
+    --shadow:none; color-scheme: dark;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--body); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  h1,h2,h3,p,ul,ol { margin:0; } ul,ol { padding:0; list-style:none; }
+  h1,h2,h3 { font-family:var(--display); font-weight:800; letter-spacing:-0.025em; text-wrap:balance; }
+  a { color:inherit; }
+  :focus-visible { outline:3px solid var(--accent); outline-offset:3px; border-radius:6px; }
+
+  .wrap { max-width:1080px; margin:0 auto; padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)); }
+  .wrap.narrow { max-width:760px; }
+  .wrap.two { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:56px; }
+  .eyebrow { font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+  .sec { padding-block:80px; background:var(--bg); } .sec.alt { background:var(--bg-alt); }
+  h2 { font-size:clamp(28px, 5vw, 44px); line-height:1.08; max-width:20ch; }
+  .wrap.two h2 { max-width:none; font-size:clamp(26px, 4vw, 36px); }
+  .sub { color:var(--muted); font-size:18px; max-width:62ch; margin-top:16px; }
+  .note { color:var(--muted); font-size:14px; margin-top:16px; }
+
+  /* Hero */
+  .hero { padding-block:72px 56px; background:var(--bg); border-bottom:1px solid var(--line); }
+  .hero h1 { font-size:clamp(40px, 9vw, 92px); line-height:.98; max-width:14ch; }
+  .hero h1 br { display:block; }
+  .lead { font-size:clamp(17px, 2.4vw, 21px); color:var(--muted); max-width:58ch; margin-top:26px; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:36px; }
+  .chips a { text-decoration:none; font-size:14px; font-weight:500; padding:8px 14px; border:1px solid var(--line); border-radius:999px; background:var(--card); transition:background-color .18s, border-color .18s, color .18s; }
+  .chips a:hover { border-color:var(--accent); color:var(--accent); }
+
+  /* Method */
+  .stepper { display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:20px; margin-top:64px; counter-reset:none; }
+  .stepper li { position:relative; border-top:2px solid var(--line); padding-top:28px; }
+  .stepper .dot, .anatomy .dot { position:absolute; top:-18px; left:0; width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background:var(--card); border:2px solid var(--line); font-family:var(--mono); font-size:13px; font-weight:500; }
+  .stepper b, .anatomy b { display:block; font-family:var(--display); font-size:19px; font-weight:800; letter-spacing:-0.015em; line-height:1.2; }
+  .stepper p, .anatomy p { color:var(--muted); font-size:14px; margin-top:6px; }
+  .stepper li.price { border-top-color:var(--accent); } .stepper li.price .dot { background:var(--accent); border-color:var(--accent); color:var(--accent-ink); }
+  .tag { display:inline-block; margin-top:6px; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; padding:3px 8px; border-radius:999px; background:var(--accent-soft); color:var(--accent); }
+
+  /* Lessons */
+  .legend { display:flex; flex-wrap:wrap; gap:18px; margin-top:28px; font-size:14px; font-weight:600; }
+  .legend span { display:inline-flex; align-items:center; gap:6px; } .was-l { color:var(--pain); } .now-l { color:var(--good); }
+  .compare { display:grid; gap:12px; margin-top:16px; }
+  .pair { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); border-radius:14px; overflow:hidden; box-shadow:var(--shadow); }
+  .pair > div { display:flex; gap:12px; padding:18px 20px; align-items:flex-start; }
+  .pair p { font-size:16px; }
+  .was { background:var(--pain-soft); color:var(--ink); } .was .ico { color:var(--pain); }
+  .now { background:var(--good-soft); } .now .ico { color:var(--good); }
+  .ico { flex:none; margin-top:2px; }
+
+  /* Questions */
+  .qgrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap:16px; margin-top:44px; }
+  .qcard { background:var(--card); border:1px solid var(--line); border-top:4px solid var(--c); border-radius:14px; padding:22px; box-shadow:var(--shadow); }
+  .qcard h3 { font-size:20px; margin-bottom:14px; }
+  .q { display:grid; grid-template-columns:30px minmax(0,1fr); gap:10px; padding:10px 0; border-top:1px solid var(--line); font-size:15px; }
+  .q:first-child { border-top:0; }
+  .qn { font-family:var(--mono); font-size:12px; color:var(--muted); padding-top:3px; }
+  .q.key { font-weight:600; }
+  .q.key .qn { color:var(--accent); font-weight:500; }
+  .must { display:inline-block; margin-left:8px; font-family:var(--mono); font-weight:400; font-size:10px; letter-spacing:.08em; text-transform:uppercase; padding:2px 7px; border-radius:999px; background:var(--accent-soft); color:var(--accent); vertical-align:2px; }
+
+  /* Pain → solution */
+  .pains { display:grid; gap:12px; margin-top:44px; }
+  .pain { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:var(--shadow); }
+  .pain .c { background:var(--card); padding:16px 18px; font-size:15px; }
+  .pain .k { display:block; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+  .pain .p { background:var(--pain-soft); font-weight:600; } .pain .p .k { color:var(--pain); }
+  .pain .s { background:var(--good-soft); font-weight:600; } .pain .s .k { color:var(--good); }
+  .pain .w .k { color:var(--warn); }
+
+  /* Proposal */
+  .anatomy { margin-top:36px; counter-reset:none; }
+  .anatomy li { position:relative; padding:0 0 28px 28px; margin-left:16px; border-left:2px solid var(--line); }
+  .anatomy li:last-child { border-left-color:transparent; padding-bottom:0; }
+  .anatomy .dot { top:-4px; left:-18px; }
+  .anatomy li.hot .dot { background:var(--accent); border-color:var(--accent); color:var(--accent-ink); }
+  .anatomy li.hot b { color:var(--accent); }
+  .tiers { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; margin-top:32px; align-items:stretch; }
+  .tier { position:relative; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 16px 16px; display:flex; flex-direction:column; gap:10px; }
+  .tier b { font-family:var(--display); font-size:20px; letter-spacing:-0.015em; }
+  .tier p { font-size:13px; color:var(--muted); }
+  .tier i { display:block; height:8px; border-radius:4px; background:var(--line); } .tier i.short { width:60%; }
+  .tier .priceline { margin-top:auto; padding-top:12px; border-top:1px dashed var(--line); display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
+  .tier .priceline em { width:44px; height:14px; border-radius:4px; background:var(--line); }
+  .tier.rec { border:2px solid var(--accent); box-shadow:var(--shadow); transform:translateY(-8px); padding-top:28px; }
+  .tier.rec .priceline em { background:var(--accent); }
+  .badge { position:absolute; top:-12px; left:50%; transform:translateX(-50%); white-space:nowrap; font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; padding:4px 10px; border-radius:999px; background:var(--accent); color:var(--accent-ink); }
+  .demo { margin-top:40px; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px; }
+  .demo h3 { font-size:22px; margin-bottom:12px; }
+  .ticks li { position:relative; padding:7px 0 7px 28px; font-size:15px; }
+  .ticks li::before { content:""; position:absolute; left:2px; top:13px; width:12px; height:7px; border-left:2.5px solid var(--good); border-bottom:2.5px solid var(--good); transform:rotate(-45deg); }
+
+  /* Objections as a chat */
+  .chat { display:flex; flex-direction:column; gap:10px; margin-top:44px; }
+  .msg { display:flex; } .msg span { max-width:min(86%, 520px); padding:12px 16px; border-radius:20px; font-size:16px; line-height:1.5; }
+  .msg.them { justify-content:flex-start; margin-top:14px; } .msg.them span { background:var(--card); border:1px solid var(--line); border-bottom-left-radius:6px; font-weight:600; }
+  .msg.us { justify-content:flex-end; } .msg.us span { background:var(--accent); color:var(--accent-ink); border-bottom-right-radius:6px; }
+
+  /* Price */
+  .equation { display:flex; flex-wrap:wrap; align-items:stretch; gap:12px; margin-top:44px; }
+  .equation b { align-self:center; font-family:var(--display); font-size:32px; color:var(--muted); }
+  .term { flex:1 1 180px; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; box-shadow:var(--shadow); }
+  .term span { display:block; font-family:var(--display); font-weight:800; font-size:19px; line-height:1.2; letter-spacing:-0.015em; }
+  .term small { display:block; margin-top:6px; color:var(--muted); font-size:13px; }
+  .term.total { background:var(--accent); color:var(--accent-ink); border-color:var(--accent); } .term.total small { color:inherit; opacity:.8; }
+  .callouts { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:16px; margin-top:28px; }
+  .callouts article { background:var(--warn-soft); border-radius:14px; padding:22px; }
+  .callouts h3 { font-size:19px; margin-bottom:8px; color:var(--warn); } .callouts p { font-size:15px; }
+
+  /* Never */
+  .never { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap:14px; margin-top:44px; }
+  .never article { display:flex; gap:14px; background:var(--card); border:1px solid var(--line); border-left:4px solid var(--pain); border-radius:12px; padding:18px 20px; }
+  .never .ico { color:var(--pain); } .never b { font-weight:600; display:block; } .never p { color:var(--muted); font-size:15px; margin-top:4px; }
+
+  /* Log */
+  .scroll { overflow-x:auto; margin-top:32px; border:1px solid var(--line); border-radius:14px; background:var(--card); }
+  .log { width:100%; min-width:860px; border-collapse:collapse; font-size:15px; }
+  .log th { text-align:left; font-family:var(--mono); font-size:11px; font-weight:400; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); padding:14px 16px; border-bottom:1px solid var(--line); }
+  .log td { padding:16px; vertical-align:top; border-bottom:1px solid var(--line); } .log tr:last-child td { border-bottom:0; }
+  .pill { display:inline-block; padding:3px 10px; border-radius:999px; font-size:13px; font-weight:600; } .pill.lost { background:var(--pain-soft); color:var(--pain); }
+
+  /* Templates */
+  .tpls { display:grid; gap:16px; margin-top:44px; }
+  .tpl { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; box-shadow:var(--shadow); }
+  .th { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:12px; }
+  .th b { font-family:var(--display); font-size:20px; letter-spacing:-0.015em; display:block; } .th span { color:var(--muted); font-size:14px; }
+  .tpl p { font-size:16px; padding-left:16px; border-left:3px solid var(--accent); }
+  .copy { display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 16px; border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:10px; font:inherit; font-size:14px; font-weight:600; cursor:pointer; transition:border-color .18s, color .18s, background-color .18s; }
+  .copy:hover { border-color:var(--accent); color:var(--accent); } .copy.done { background:var(--good-soft); border-color:var(--good); color:var(--good); }
+
+  /* Checklist */
+  .progress { height:10px; border-radius:6px; background:var(--line); overflow:hidden; margin-top:32px; } .progress div { height:100%; width:0; background:var(--good); transition:width .35s; }
+  .count { margin-top:10px; font-size:14px; color:var(--muted); } .count #pcount { font-family:var(--mono); color:var(--ink); }
+  .reset { margin-left:12px; background:none; border:0; color:var(--accent); font:inherit; font-size:14px; text-decoration:underline; text-underline-offset:3px; cursor:pointer; min-height:44px; }
+  .checks { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap:16px; margin-top:12px; align-items:start; }
+  .cgroup { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; box-shadow:var(--shadow); } .cgroup h3 { font-size:21px; margin-bottom:10px; }
+  .cgroup li { border-top:1px solid var(--line); } .cgroup li:first-child { border-top:0; }
+  .cgroup label { display:grid; grid-template-columns:26px minmax(0,1fr); gap:12px; padding:12px 0; cursor:pointer; font-size:15px; align-items:start; }
+  .cgroup input { position:absolute; opacity:0; width:1px; height:1px; }
+  .box { width:24px; height:24px; border-radius:7px; border:2px solid var(--line); display:grid; place-items:center; color:transparent; transition:background-color .18s, border-color .18s; margin-top:1px; }
+  .box svg { width:15px; height:15px; }
+  input:checked + .box { background:var(--good); border-color:var(--good); color:#fff; }
+  input:checked ~ .txt { color:var(--muted); text-decoration:line-through; text-decoration-color:var(--line); }
+  input:focus-visible + .box { outline:3px solid var(--accent); outline-offset:2px; }
+
+  .foot { padding-block:40px; background:var(--ink); color:var(--bg); } .foot p { font-size:15px; opacity:.85; max-width:60ch; }
+
+  @media (max-width: 900px) {
+    .wrap.two { grid-template-columns:minmax(0,1fr); gap:56px; }
+    .stepper { grid-template-columns:minmax(0,1fr); gap:0; margin-top:44px; }
+    .stepper li { border-top:0; border-left:2px solid var(--line); padding:0 0 30px 28px; margin-left:16px; }
+    .stepper li.price { border-left-color:var(--accent); } .stepper li:last-child { border-left-color:transparent; padding-bottom:0; }
+    .stepper .dot { top:-4px; left:-18px; }
+    .pain { grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+  }
+  @media (max-width: 640px) {
+    .sec { padding-block:56px; } .hero { padding-block:48px 40px; }
+    .pair { grid-template-columns:minmax(0,1fr); } .pain { grid-template-columns:minmax(0,1fr); }
+    .tiers { grid-template-columns:minmax(0,1fr); gap:20px; } .tier.rec { transform:none; }
+    .msg span { max-width:92%; }
+    .equation b { width:100%; text-align:center; font-size:26px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration:.001ms !important; animation-duration:.001ms !important; } }
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Playbook · ventas y producto</p>
+    <h1>Primero el dolor.<br>El precio, el último.</h1>
+    <p class="lead">Cómo entendemos al cliente, le enseñamos la solución funcionando y cerramos sin regalar el valor. Nació de la venta que no cerramos con Barbería Carlos y crece con cada cliente.</p>
+    <nav class="chips" aria-label="Secciones">
+      <a href="#metodo">Método</a><a href="#carlos">Lo aprendido</a><a href="#preguntas">Preguntas</a><a href="#dolor">Dolor y solución</a><a href="#propuesta">Propuesta</a><a href="#objeciones">Objeciones</a><a href="#precio">Precio</a><a href="#nunca">Nunca</a><a href="#registro">Registro</a><a href="#plantillas">Plantillas</a><a href="#checklist">Checklist</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="metodo" class="sec">
+  <div class="wrap">
+    <p class="eyebrow">El método</p>
+    <h2>Seis pasos, siempre en este orden</h2>
+    <p class="sub">No vendemos una web. Vendemos que el cliente pierda menos dinero y menos tiempo con un problema que ya tiene.</p>
+    <ol class="stepper">
+<li><span class="dot">1</span><div><b>Preguntar</b><p>Entiende cómo trabaja hoy y qué le duele.</p></div></li>
+<li><span class="dot">2</span><div><b>Cuantificar</b><p>Pon cifra al dolor con sus propios números.</p></div></li>
+<li><span class="dot">3</span><div><b>Enseñar</b><p>Demo pública con su nombre, en su móvil.</p></div></li>
+<li><span class="dot">4</span><div><b>Quitar el riesgo</b><p>Prueba, sin permanencia, datos a su nombre.</p></div></li>
+<li class="price"><span class="dot">5</span><div><b>Precio</b><span class="tag">solo aquí</span><p>Tres opciones. Descuento visible, con motivo.</p></div></li>
+<li><span class="dot">6</span><div><b>Siguiente paso</b><p>Una acción concreta y con fecha.</p></div></li>
+</ol>
+  </div>
+</section>
+
+<section id="carlos" class="sec alt">
+  <div class="wrap">
+    <p class="eyebrow">Lo aprendido con Carlos</p>
+    <h2>Qué pasó y qué hacemos ahora</h2>
+    <p class="sub">Con una sola respuesta no se sabe la causa real. Son hipótesis hasta que se repita el patrón en varios clientes.</p>
+    <div class="legend"><span class="was-l"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg> Qué pasó</span><span class="now-l"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Qué hacemos ahora</span></div>
+    <div class="compare">
+<article class="pair"><div class="was"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><p>Dijimos el precio antes de que viera nada.</p></div><div class="now"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>El precio va al final, después de la demo.</p></div></article>
+<article class="pair"><div class="was"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><p>Lo presentamos como un favor: “precio amigo”.</p></div><div class="now"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>El descuento es una línea visible con motivo. El valor no se regala.</p></div></article>
+<article class="pair"><div class="was"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><p>No preguntamos antes de ofrecer.</p></div><div class="now"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Descubrimiento primero. Sus palabras van en la propuesta.</p></div></article>
+<article class="pair"><div class="was"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><p>El enlace del documento era privado.</p></div><div class="now"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Abrirlo siempre desde otro dispositivo, sin sesión.</p></div></article>
+<article class="pair"><div class="was"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><p>No había nada que tocar desde el móvil.</p></div><div class="now"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Demo pública con su nombre, antes del precio.</p></div></article>
+<article class="pair"><div class="was"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><p>60 € y 30 € al mes: un precio que no tranquiliza.</p></div><div class="now"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Precio calculado con costes y tiempo, no por simpatía.</p></div></article>
+<article class="pair"><div class="was"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><p>Había otra opción “parecida”. Le costó decidirse.</p></div><div class="now"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Estábamos cerca. Gana quien reduce más el riesgo.</p></div></article>
+<article class="pair"><div class="was"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><p>Una sola oferta: sí o no.</p></div><div class="now"><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Tres opciones, con una recomendada.</p></div></article>
+</div>
+  </div>
+</section>
+
+<section id="preguntas" class="sec">
+  <div class="wrap">
+    <p class="eyebrow">Descubrimiento</p>
+    <h2>Catorce preguntas antes de proponer nada</h2>
+    <p class="sub">Se escriben sus respuestas con sus mismas palabras: irán en la propuesta. No se propone nada hasta tener las cuatro marcadas como imprescindibles.</p>
+    <div class="qgrid">
+<article class="qcard" style="--c:var(--accent)"><h3>Situación</h3><ul>
+<li class="q"><span class="qn">1</span><span>¿Cómo te reservan hoy los clientes?</span></li>
+<li class="q"><span class="qn">2</span><span>¿Cuántas citas haces a la semana?</span></li>
+<li class="q"><span class="qn">3</span><span>¿Cuánto tiempo al día dedicas a contestar y apuntar?</span></li>
+</ul></article>
+<article class="qcard" style="--c:var(--pain)"><h3>Dolor</h3><ul>
+<li class="q key"><span class="qn">4</span><span>¿Qué es lo que más te molesta de cómo lo haces hoy?<span class="must">imprescindible</span></span></li>
+<li class="q key"><span class="qn">5</span><span>¿Cuántas veces a la semana alguien no se presenta o cancela tarde?<span class="must">imprescindible</span></span></li>
+<li class="q"><span class="qn">6</span><span>¿Qué pasa cuando estás con un cliente y te escriben para reservar?</span></li>
+</ul></article>
+<article class="qcard" style="--c:var(--warn)"><h3>Coste del dolor</h3><ul>
+<li class="q key"><span class="qn">7</span><span>¿Cuánto vale para ti una hora vacía?<span class="must">imprescindible</span></span></li>
+<li class="q"><span class="qn">8</span><span>¿Cuántas horas vacías tienes al mes por plantones?</span></li>
+</ul></article>
+<article class="qcard" style="--c:var(--accent)"><h3>Intentos previos</h3><ul>
+<li class="q"><span class="qn">9</span><span>¿Has probado alguna aplicación? ¿Qué te gustó y qué no?</span></li>
+<li class="q"><span class="qn">10</span><span>¿Qué te han propuesto otras personas y qué te pareció?</span></li>
+</ul></article>
+<article class="qcard" style="--c:var(--good)"><h3>Decisión</h3><ul>
+<li class="q"><span class="qn">11</span><span>¿Quién decide y qué necesitas ver para decir que sí?</span></li>
+<li class="q key"><span class="qn">12</span><span>¿Qué te haría decir que no?<span class="must">imprescindible</span></span></li>
+<li class="q"><span class="qn">13</span><span>¿Para cuándo lo quieres?</span></li>
+</ul></article>
+<article class="qcard" style="--c:var(--good)"><h3>Éxito</h3><ul>
+<li class="q"><span class="qn">14</span><span>¿Qué tendría que haber pasado en tres meses para que mereciera la pena?</span></li>
+</ul></article>
+</div>
+  </div>
+</section>
+
+<section id="dolor" class="sec alt">
+  <div class="wrap">
+    <p class="eyebrow">Atacar el dolor</p>
+    <h2>Del dolor a la solución, con prueba</h2>
+    <p class="sub">Cada fila se escribe en una línea. Si no hay un dolor que se pueda cuantificar, todavía no hay propuesta: se sigue preguntando o se declina.</p>
+    <div class="pains">
+<article class="pain"><div class="c p"><span class="k">Dolor</span>Contesta mensajes todo el día</div><div class="c w"><span class="k">Coste</span>Horas al mes × lo que vale su hora</div><div class="c s"><span class="k">Solución</span>Reservas por su cuenta, a cualquier hora</div><div class="c r"><span class="k">Prueba</span>Demo: reservar desde el móvil en dos minutos</div></article>
+<article class="pain"><div class="c p"><span class="k">Dolor</span>Plantones y cancelaciones tardías</div><div class="c w"><span class="k">Coste</span>Plantones al mes × valor de la cita</div><div class="c s"><span class="k">Solución</span>Recordatorio el día antes y cancelar con un enlace</div><div class="c r"><span class="k">Prueba</span>Enseñar el email y el enlace</div></article>
+<article class="pain"><div class="c p"><span class="k">Dolor</span>Dos personas piden la misma hora</div><div class="c w"><span class="k">Coste</span>Citas dobles y mal ambiente</div><div class="c s"><span class="k">Solución</span>La hora se bloquea sola</div><div class="c r"><span class="k">Prueba</span>Prueba de reservas simultáneas</div></article>
+<article class="pain"><div class="c p"><span class="k">Dolor</span>No sabe cuánto gana</div><div class="c w"><span class="k">Coste</span>Decisiones a ciegas</div><div class="c s"><span class="k">Solución</span>Panel con lo cobrado por día, semana y mes</div><div class="c r"><span class="k">Prueba</span>Panel de la demo con datos de ejemplo</div></article>
+<article class="pain"><div class="c p"><span class="k">Dolor</span>Miedo a lo técnico</div><div class="c w"><span class="k">Coste</span>No lo usa, no lo mantiene</div><div class="c s"><span class="k">Solución</span>Cambia horarios, festivos, fotos y textos él mismo</div><div class="c r"><span class="k">Prueba</span>Sesión de 20 minutos al entregar</div></article>
+<article class="pain"><div class="c p"><span class="k">Dolor</span>Las plataformas cobran comisión</div><div class="c w"><span class="k">Coste</span>Un porcentaje por cada cita</div><div class="c s"><span class="k">Solución</span>Sin comisión: citas y datos son suyos</div><div class="c r"><span class="k">Prueba</span>Comparar lo que paga hoy con lo que pagaría</div></article>
+<article class="pain"><div class="c p"><span class="k">Dolor</span>“¿Y si desapareces?”</div><div class="c w"><span class="k">Coste</span>Miedo a depender de nosotros</div><div class="c s"><span class="k">Solución</span>Dominio y datos a su nombre, con exportación</div><div class="c r"><span class="k">Prueba</span>Se pone por escrito</div></article>
+<article class="pain"><div class="c p"><span class="k">Dolor</span>Datos de sus clientes</div><div class="c w"><span class="k">Coste</span>Multas y pérdida de confianza</div><div class="c s"><span class="k">Solución</span>Consentimiento, exportar, borrar, conservación limitada</div><div class="c r"><span class="k">Prueba</span>Política de privacidad incluida</div></article>
+</div>
+  </div>
+</section>
+
+<section id="propuesta" class="sec">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow">La propuesta</p>
+      <h2>Siete bloques, de arriba abajo</h2>
+      <p class="sub">El precio no aparece hasta el bloque seis. Se muestra el descuento con su motivo y se escribe todo lo que no se incluye, como el dominio.</p>
+      <ol class="anatomy">
+<li><span class="dot">1</span><div><b>Tu situación, con tus palabras</b><p>Lo que dijo en el descubrimiento, citado.</p></div></li>
+<li><span class="dot">2</span><div><b>Lo que te cuesta hoy</b><p>La cuenta con sus números.</p></div></li>
+<li><span class="dot">3</span><div><b>La solución, ligada a cada dolor</b><p>Sin listas de funciones sueltas.</p></div></li>
+<li><span class="dot">4</span><div><b>Pruébalo tú</b><p>Enlace a la demo con su nombre.</p></div></li>
+<li><span class="dot">5</span><div><b>Sin riesgo</b><p>Prueba, sin permanencia, dominio y datos a su nombre.</p></div></li>
+<li class="hot"><span class="dot">6</span><div><b>Tres opciones y el precio</b><span class="tag">primer precio</span><p>El primer sitio donde aparece una cifra.</p></div></li>
+<li><span class="dot">7</span><div><b>Siguiente paso con fecha</b><p>“Si te encaja, empezamos el lunes.”</p></div></li>
+</ol>
+    </div>
+    <div>
+      <p class="eyebrow">Tres opciones</p>
+      <h2>Elegir entre tres pesa menos que decir sí o no a una</h2>
+      <div class="tiers" aria-label="Ejemplo de tres opciones">
+<div class="tier"><b>Básica</b><p>Lo esencial para empezar</p><i></i><i></i><i class="short"></i><div class="priceline"><span>Precio</span><em></em></div></div>
+<div class="tier rec"><span class="badge">Recomendada</span><b>Recomendada</b><p>Resuelve su dolor principal</p><i></i><i></i><i class="short"></i><div class="priceline"><span>Precio</span><em></em></div></div>
+<div class="tier"><b>Completa</b><p>Todo, con más soporte</p><i></i><i></i><i class="short"></i><div class="priceline"><span>Precio</span><em></em></div></div>
+</div><p class="note">Ejemplo de reparto. Cada opción explica qué incluye y qué no incluye.</p>
+      <div class="demo">
+        <h3>La demo, antes del precio</h3>
+        <ul class="ticks">
+          <li>Enlace público con su nombre, logo, servicios y fotos (con su permiso)</li>
+          <li>Datos de ejemplo marcados como ejemplo, nunca como suyos</li>
+          <li>Se prueba desde el móvil sin crear cuenta</li>
+          <li>Abierta antes desde otro dispositivo, sin sesión, con datos móviles</li>
+          <li>El panel se enseña en cinco minutos de videollamada o en un vídeo corto</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="objeciones" class="sec alt">
+  <div class="wrap narrow">
+    <p class="eyebrow">Objeciones</p>
+    <h2>Qué contestar cuando dice…</h2>
+    <div class="chat">
+<div class="msg them"><span>“Lo tengo que pensar”</span></div><div class="msg us"><span>Claro. ¿Qué parte quieres pensar: el precio, la cuota mensual o si te va a funcionar a ti? Y se trabaja esa parte.</span></div>
+<div class="msg them"><span>“Hay otra opción más barata”</span></div><div class="msg us"><span>Comparación honesta de lo que incluye cada una. Sin hablar mal de nadie.</span></div>
+<div class="msg them"><span>“No sé de informática”</span></div><div class="msg us"><span>Lo cambias tú desde el móvil. Te lo enseño en 20 minutos y te dejo una guía.</span></div>
+<div class="msg them"><span>“¿Y si dejo de pagar?”</span></div><div class="msg us"><span>El dominio y los datos son tuyos. La web se puede llevar a otro sitio. Por escrito.</span></div>
+<div class="msg them"><span>“Es mucho por mes”</span></div><div class="msg us"><span>Volver al coste del dolor que él mismo calculó.</span></div>
+<div class="msg them"><span>“Prefiero a otra persona”</span></div><div class="msg us"><span>Agradecer, preguntar la razón una sola vez, registrarla y dejar la puerta abierta.</span></div>
+</div>
+  </div>
+</section>
+
+<section id="precio" class="sec">
+  <div class="wrap">
+    <p class="eyebrow">Cómo ponemos precio</p>
+    <h2>Se calcula, no se regala</h2>
+    <div class="equation" role="img" aria-label="Cuota mensual mínima igual a costes fijos más horas de soporte por tarifa más margen">
+      <div class="term"><span>Costes fijos</span><small>alojamiento, base de datos, emails</small></div><b>+</b>
+      <div class="term"><span>Horas de soporte × tu tarifa</span><small>tu tiempo cuenta</small></div><b>+</b>
+      <div class="term"><span>Margen</span><small>para crecer</small></div><b>=</b>
+      <div class="term total"><span>Cuota mensual mínima</span><small>nunca por debajo</small></div>
+    </div>
+    <div class="callouts">
+      <article><h3>Verifica cada vez</h3><p>Los costes cambian. Los planes gratuitos suelen prohibir el uso comercial: lee las condiciones antes de montar un negocio encima. El envío de emails suele limitarse hasta tener dominio verificado. El dominio lo compra el cliente a su nombre.</p></article>
+      <article><h3>Si sale “demasiado”</h3><p>Se ofrece un plan menor, con menos horas de soporte. No se baja el precio por debajo del coste.</p></article>
+      <article><h3>Cómo se enseña</h3><p>Como lo que resuelve (“equivale a una cita al mes”), no como “1 € al día”. Descuento: precio normal, rebaja y motivo, en líneas aparte.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="nunca" class="sec alt">
+  <div class="wrap">
+    <p class="eyebrow">Líneas rojas</p>
+    <h2>Lo que nunca hacemos</h2>
+    <div class="never">
+<article><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><div><b>Inventar reseñas, valoraciones, cifras o logotipos</b><p>Es publicidad engañosa y la sanción recae en el cliente. Plantillas ocultas y editables para que pegue las reales.</p></div></article>
+<article><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><div><b>Decir que algo funciona sin haberlo probado</b><p>La entrega separa “probado” de “pendiente” (por ejemplo, emails reales sin dominio).</p></div></article>
+<article><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><div><b>Prometer “cumplimiento total” del RGPD</b><p>Medidas técnicas sí. Los textos legales los revisa un profesional.</p></div></article>
+<article><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><div><b>Presionar con urgencia falsa</b><p>La confianza vale más que una venta rápida.</p></div></article>
+<article><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><div><b>Dejar el dominio a nuestro nombre</b><p>El titular es el cliente.</p></div></article>
+<article><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><div><b>Enviar un enlace sin abrirlo como visitante</b><p>Otro dispositivo, sin sesión, con datos móviles.</p></div></article>
+</div>
+  </div>
+</section>
+
+<section id="registro" class="sec">
+  <div class="wrap">
+    <p class="eyebrow">Registro de oportunidades</p>
+    <h2>Se anota cada propuesta, ganada o perdida</h2>
+    <p class="sub">Tras tres o cuatro entradas se buscan patrones.</p>
+    <div class="scroll">
+      <table class="log">
+        <thead><tr><th>Fecha</th><th>Cliente</th><th>Resultado</th><th>Razón, con sus palabras</th><th>Hipótesis</th><th>Qué cambiamos</th></tr></thead>
+        <tbody><tr>
+          <td>2026-11</td><td>Barbería Carlos</td><td><span class="pill lost">Perdido</span></td>
+          <td>Pendiente. Dijo: “había una parecida que me gustó más, me costó decidirme”.</td>
+          <td>Precio primero y como favor; enlace posiblemente cerrado; sin demo pública; precio muy bajo.</td>
+          <td>Descubrimiento antes de proponer, demo pública, tres opciones y precio al final.</td>
+        </tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="plantillas" class="sec alt">
+  <div class="wrap">
+    <p class="eyebrow">Plantillas</p>
+    <h2>Mensajes listos para copiar</h2>
+    <div class="tpls">
+<article class="tpl"><div class="th"><div><b>Cuando dice que no</b><span>Una sola vez, sin insistir</span></div><button type="button" class="copy" data-copy="tpl0"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><rect x="7" y="7" width="9" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span>Copiar</span></button></div><p id="tpl0">Gracias por decírmelo y por ser claro, me sirve mucho. Si te apetece, ¿me cuentas qué tenía la otra opción que te gustó más? Es para mejorar. Y si más adelante cambia algo o conoces a alguien que lo necesite, cuenta conmigo.</p></article>
+<article class="tpl"><div class="th"><div><b>Pedir el descubrimiento</b><span>Antes de enseñar nada</span></div><button type="button" class="copy" data-copy="tpl1"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><rect x="7" y="7" width="9" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span>Copiar</span></button></div><p id="tpl1">Antes de enseñarte nada, me gustaría entender cómo trabajas hoy: cómo te reservan, qué te quita más tiempo y qué te gustaría que cambiase. Son diez minutos. Con eso te preparo algo hecho a tu medida, no una plantilla.</p></article>
+<article class="tpl"><div class="th"><div><b>Seguimiento a los tres meses</b><span>Reabrir la conversación</span></div><button type="button" class="copy" data-copy="tpl2"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><rect x="7" y="7" width="9" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span>Copiar</span></button></div><p id="tpl2">Hola, hace unos meses hablamos. ¿Cómo te va con las reservas? He mejorado un par de cosas que creo que te encajarían, por si quieres verlas.</p></article>
+</div>
+  </div>
+</section>
+
+<section id="checklist" class="sec">
+  <div class="wrap">
+    <p class="eyebrow">Calidad del producto</p>
+    <h2>Checklist de cada proyecto</h2>
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="16" aria-valuenow="0" id="pbar"><div id="pfill"></div></div>
+    <p class="count"><span id="pcount">0</span> de 16 marcadas <button type="button" class="reset" id="preset">Empezar de nuevo</button></p>
+    <div class="checks">
+<article class="cgroup"><h3>Antes de proponer</h3><ul>
+<li><label><input type="checkbox" id="ck0" data-ck="0"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Descubrimiento hecho y dolor cuantificado</span></label></li>
+<li><label><input type="checkbox" id="ck1" data-ck="1"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Demo pública abierta y probada desde otro dispositivo</span></label></li>
+<li><label><input type="checkbox" id="ck2" data-ck="2"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Tres opciones y precio al final</span></label></li>
+</ul></article>
+<article class="cgroup"><h3>Antes de entregar</h3><ul>
+<li><label><input type="checkbox" id="ck3" data-ck="3"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Diseño pensado primero para el móvil, sin desbordes y con foco visible</span></label></li>
+<li><label><input type="checkbox" id="ck4" data-ck="4"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Reservas: bloqueo en servidor y en la base de datos, con prueba de peticiones simultáneas</span></label></li>
+<li><label><input type="checkbox" id="ck5" data-ck="5"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Festivos, horas bloqueadas y cierres reflejados al instante en el calendario público</span></label></li>
+<li><label><input type="checkbox" id="ck6" data-ck="6"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Panel con contraseña, segundo factor y límite de intentos; datos de clientes inaccesibles sin sesión</span></label></li>
+<li><label><input type="checkbox" id="ck7" data-ck="7"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Emails probados con dominio verificado, o anotados como pendientes</span></label></li>
+<li><label><input type="checkbox" id="ck8" data-ck="8"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">RGPD: consentimiento, exportar y borrar datos, conservación limitada, textos con los datos del titular</span></label></li>
+<li><label><input type="checkbox" id="ck9" data-ck="9"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Contenido real: fotos, textos y datos del titular; nada de relleno presentado como real</span></label></li>
+<li><label><input type="checkbox" id="ck10" data-ck="10"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Alojamiento adecuado al uso, comercial o no</span></label></li>
+<li><label><input type="checkbox" id="ck11" data-ck="11"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Documento de entrega: qué se probó, qué no y qué falta del cliente</span></label></li>
+<li><label><input type="checkbox" id="ck12" data-ck="12"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Sesión de 20 minutos para que sepa cambiar horarios, festivos, fotos y textos</span></label></li>
+</ul></article>
+<article class="cgroup"><h3>Después de entregar</h3><ul>
+<li><label><input type="checkbox" id="ck13" data-ck="13"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Pedir una reseña real, con permiso para usarla</span></label></li>
+<li><label><input type="checkbox" id="ck14" data-ck="14"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Anotar el resultado en el registro</span></label></li>
+<li><label><input type="checkbox" id="ck15" data-ck="15"><span class="box"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt">Revisión a los 30 días</span></label></li>
+</ul></article>
+</div>
+    <p class="note">Lo que marques se guarda solo en este navegador.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot"><div class="wrap"><p>Este playbook se lee antes de hablar de precio, antes de diseñar y antes de entregar. Se actualiza con cada cliente.</p></div></footer>
+
+<script>(function () {
+  var KEY = "playbook-checklist-v1";
+  var TOTAL = 16;
+  var boxes = Array.prototype.slice.call(document.querySelectorAll("[data-ck]"));
+  var fill = document.getElementById("pfill"), count = document.getElementById("pcount"), bar = document.getElementById("pbar");
+  function load() { try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { return []; } }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(boxes.filter(function (b) { return b.checked; }).map(function (b) { return b.dataset.ck; }))); } catch (e) {} }
+  function paint() {
+    var n = boxes.filter(function (b) { return b.checked; }).length;
+    count.textContent = n; fill.style.width = (n / TOTAL * 100) + "%"; bar.setAttribute("aria-valuenow", n);
+  }
+  var saved = load();
+  boxes.forEach(function (b) { b.checked = saved.indexOf(b.dataset.ck) !== -1; b.addEventListener("change", function () { save(); paint(); }); });
+  document.getElementById("preset").addEventListener("click", function () { boxes.forEach(function (b) { b.checked = false; }); save(); paint(); });
+  paint();
+
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-copy]");
+    if (!btn) return;
+    var el = document.getElementById(btn.dataset.copy), label = btn.querySelector("span");
+    function ok() { btn.classList.add("done"); label.textContent = "Copiado"; setTimeout(function () { btn.classList.remove("done"); label.textContent = "Copiar"; }, 1800); }
+    function select() { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); label.textContent = "Selecciónalo y copia"; }
+    try { navigator.clipboard.writeText(el.textContent).then(ok, select); } catch (err) { select(); }
+  });
+})();
+</script>
