@@ -22,6 +22,7 @@ Orden obligatorio: **Preguntar → Cuantificar el dolor → Enseñar la solució
 | Precio muy bajo (60 € + 30 €/mes) | Un precio bajo no tranquiliza: sugiere poca seriedad. Se fija con la fórmula de la sección 7 |
 | Había una alternativa "parecida" y le costó decidirse | Estábamos cerca. En ventas parecidas gana quien reduce más el riesgo percibido |
 | Una sola oferta, de "sí o no" | Tres opciones (sección 4) |
+| La competencia ganó con algo más simple: solo reservas, sin web ni dominio | Ofrecer siempre una opción básica de "solo reservas". Vender el resultado (citas sin mensajes), no la cantidad de funciones |
 
 > Con una sola respuesta no se sabe la causa real. Se pregunta, se registra (sección 9) y se corrige cuando se repite el patrón en varios clientes.
 
@@ -157,7 +158,7 @@ Se anota cada propuesta, ganada o perdida. Tras tres o cuatro entradas se buscan
 
 | Fecha | Cliente | Resultado | Razón (con sus palabras) | Qué hipótesis teníamos | Qué cambiamos |
 |---|---|---|---|---|---|
-| 2026-11 | Barbería Carlos | Perdido | Pendiente: "había otra parecida que me gustó más, me costó decidirme" | Precio primero y como favor; enlace posiblemente cerrado; sin demo pública; un precio muy bajo | Descubrimiento antes de proponer; demo pública; tres opciones; precio al final |
+| 2026-11 | Barbería Carlos | Perdido | "Había otra parecida que me gustó más, me costó decidirme". Eligió TuTurno (`tuturno.eu/cbarber`): solo una página de reservas, dentro de una plataforma para varias peluquerías | Ganó lo más simple: reservar "en menos de un minuto", sin web completa ni dominio que comprar. Tenía servicios "extra" (cejas, lavado) y cambios de horario de un día desde la agenda. No sabemos su precio | Opción básica "solo reservas", lista en un día. Añadir extras y cambios de un día desde la agenda. Vender la reserva, no la web |
 
 ---
 
