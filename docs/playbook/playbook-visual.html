@@ -185,6 +185,8 @@
     .equation b { width:100%; text-align:center; font-size:26px; }
   }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration:.001ms !important; animation-duration:.001ms !important; } }
+
+  .never.good article { border-left-color:var(--good); } .never.good .ico { color:var(--good); }
 </style>
 
 <header class="hero">
@@ -193,7 +195,7 @@
     <h1>Primero el dolor.<br>El precio, el último.</h1>
     <p class="lead">Cómo entendemos al cliente, le enseñamos la solución funcionando y cerramos sin regalar el valor. Nació de la venta que no cerramos con Barbería Carlos y crece con cada cliente.</p>
     <nav class="chips" aria-label="Secciones">
-      <a href="#metodo">Método</a><a href="#carlos">Lo aprendido</a><a href="#preguntas">Preguntas</a><a href="#dolor">Dolor y solución</a><a href="#propuesta">Propuesta</a><a href="#objeciones">Objeciones</a><a href="#precio">Precio</a><a href="#nunca">Nunca</a><a href="#registro">Registro</a><a href="#plantillas">Plantillas</a><a href="#checklist">Checklist</a>
+      <a href="#metodo">Método</a><a href="#carlos">Lo aprendido</a><a href="#preguntas">Preguntas</a><a href="#dolor">Dolor y solución</a><a href="#propuesta">Propuesta</a><a href="#objeciones">Objeciones</a><a href="#precio">Precio</a><a href="#modelo">Modelo de cobro</a><a href="#nunca">Nunca</a><a href="#registro">Registro</a><a href="#plantillas">Plantillas</a><a href="#checklist">Checklist</a>
     </nav>
   </div>
 </header>
@@ -363,7 +365,28 @@
   </div>
 </section>
 
-<section id="nunca" class="sec alt">
+<section id="modelo" class="sec alt">
+  <div class="wrap">
+    <p class="eyebrow">Modelo de cobro elegido</p>
+    <h2>Se cobra cada intervención</h2>
+    <p class="sub">Sin cuota mensual ni anual. Funciona si el cliente rara vez necesita ayuda, y por eso las reglas van por escrito.</p>
+    <div class="never good">
+<article><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Toda la infraestructura a nombre del cliente</b><p>Dominio, alojamiento, base de datos y emails, en cuentas suyas. Tú no cargas con costes fijos y el modelo es viable.</p></div></article>
+<article><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Lista de precios escrita antes de empezar</b><p>Cambio pequeño, medio, grande y urgencia: importe o tarifa por hora, con un mínimo por intervención.</p></div></article>
+<article><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Presupuesto antes de tocar nada</b><p>El cliente lo aprueba por escrito. Un mensaje vale.</p></div></article>
+<article><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Qué es mantenimiento y qué no</b><p>Un fallo de lo entregado se corrige sin cobrar. Un cambio nuevo o una función nueva se cobra.</p></div></article>
+<article><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Seguridad y actualizaciones por escrito</b><p>Quién las hace y cuándo. Una web abandonada es un riesgo para los datos de sus clientes.</p></div></article>
+<article><span class="ico"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>La instalación lo cubre todo</b><p>Si el panel deja editar casi todo, habrá pocas intervenciones. Los ingresos salen de la instalación.</p></div></article>
+</div>
+    <div class="callouts">
+      <article><h3>Riesgo: ingresos impredecibles</h3><p>Cuanto mejor sea el producto, menos intervenciones habrá. Se cubre con el precio de la instalación, no con el mantenimiento.</p></article>
+      <article><h3>Riesgo: actualizaciones sin hacer</h3><p>Si nadie cobra por ellas, nadie las hace. Se pone por escrito quién y cuándo, o se vende un plan mínimo de seguridad.</p></article>
+      <article><h3>Riesgo: discusiones</h3><p>Lista de precios, presupuesto previo y una frase clara sobre qué es un fallo y qué es un cambio.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="nunca" class="sec">
   <div class="wrap">
     <p class="eyebrow">Líneas rojas</p>
     <h2>Lo que nunca hacemos</h2>
@@ -378,7 +401,7 @@
   </div>
 </section>
 
-<section id="registro" class="sec">
+<section id="registro" class="sec alt">
   <div class="wrap">
     <p class="eyebrow">Registro de oportunidades</p>
     <h2>Se anota cada propuesta, ganada o perdida</h2>
@@ -397,7 +420,7 @@
   </div>
 </section>
 
-<section id="plantillas" class="sec alt">
+<section id="plantillas" class="sec">
   <div class="wrap">
     <p class="eyebrow">Plantillas</p>
     <h2>Mensajes listos para copiar</h2>
@@ -409,7 +432,7 @@
   </div>
 </section>
 
-<section id="checklist" class="sec">
+<section id="checklist" class="sec alt">
   <div class="wrap">
     <p class="eyebrow">Calidad del producto</p>
     <h2>Checklist de cada proyecto</h2>

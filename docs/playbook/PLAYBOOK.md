@@ -140,6 +140,19 @@ Costes que se cuentan siempre (verificar cada vez; cambian):
 
 **Cuota mensual o anual.** Mucha gente percibe una cuota mensual como un gasto que no se acaba nunca, aunque sume lo mismo al año. Se ofrecen las dos: mensual, y anual con un precio por año más bajo que 12 meses sueltos. Conviene saber qué incluye cada una y cuánto cuesta de verdad al año lo que se cobra, porque el cliente puede estar comparando con alguien que cobra una sola vez al año.
 
+### Modelo elegido (noviembre 2026): pago por intervención
+
+No hay cuota mensual ni anual. Se cobra cada intervención de mantenimiento cuando hace falta. Para que funcione:
+
+1. **Toda la infraestructura a nombre del cliente**: dominio, alojamiento, base de datos y emails, en cuentas suyas. Así no cargamos con costes fijos y el modelo es viable. Si algo cuesta dinero cada año, lo paga él directamente.
+2. **Lista de precios escrita antes de empezar**: cambio pequeño, medio, grande y urgencia, cada uno con un importe o una tarifa por hora, y un mínimo por intervención.
+3. **Presupuesto antes de tocar nada.** El cliente lo aprueba por escrito (un mensaje vale).
+4. **Qué es mantenimiento y qué no.** Un fallo de lo que entregamos se corrige sin cobrar. Un cambio nuevo o una función nueva se cobra.
+5. **Seguridad y actualizaciones por escrito.** Quién las hace y cuándo. Sin esto, una web abandonada es un riesgo para los datos de sus clientes y para nosotros.
+6. **El precio de la instalación lo cubre todo.** Si el panel deja que el cliente edite casi todo, habrá pocas intervenciones. Los ingresos salen de la instalación, no del mantenimiento: se calcula con la fórmula de arriba y no se regala.
+
+Riesgos que vigilar: ingresos impredecibles, clientes que posponen las actualizaciones y discusiones sobre qué cuenta como "mantenimiento". Se resuelven con la lista de precios, el presupuesto previo y la cláusula de seguridad.
+
 Si la cuota que sale es más alta que lo que "parece razonable", se ofrece un plan menor (menos horas de soporte) en lugar de bajar el precio por debajo del coste.
 
 ---
