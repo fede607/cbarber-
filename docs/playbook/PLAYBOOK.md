@@ -23,6 +23,7 @@ Orden obligatorio: **Preguntar → Cuantificar el dolor → Enseñar la solució
 | Había una alternativa "parecida" y le costó decidirse | Estábamos cerca. En ventas parecidas gana quien reduce más el riesgo percibido |
 | Una sola oferta, de "sí o no" | Tres opciones (sección 4) |
 | La competencia ganó con algo más simple: solo reservas, sin web ni dominio | Ofrecer siempre una opción básica de "solo reservas". Vender el resultado (citas sin mensajes), no la cantidad de funciones |
+| Carlos lo dijo con sus palabras: le gustó "poder editar todo sin pedírselo a él" (horarios y demás) y que "no tiene un costo mensual, es anual de mantenimiento". Nuestra propuesta tenía ambas cosas escondidas o distintas: el panel editable era uno de nueve puntos, y la cuota era mensual | Poner "lo cambias tú, sin pedírmelo" como el primer beneficio. Ofrecer siempre cobro anual como alternativa a la cuota mensual, con un precio claro por año |
 
 > Con una sola respuesta no se sabe la causa real. Se pregunta, se registra (sección 9) y se corrige cuando se repite el patrón en varios clientes.
 
@@ -137,6 +138,8 @@ Costes que se cuentan siempre (verificar cada vez; cambian):
 - Dominio, que el cliente compra a su nombre.
 - Tu tiempo de soporte y de pequeños cambios.
 
+**Cuota mensual o anual.** Mucha gente percibe una cuota mensual como un gasto que no se acaba nunca, aunque sume lo mismo al año. Se ofrecen las dos: mensual, y anual con un precio por año más bajo que 12 meses sueltos. Conviene saber qué incluye cada una y cuánto cuesta de verdad al año lo que se cobra, porque el cliente puede estar comparando con alguien que cobra una sola vez al año.
+
 Si la cuota que sale es más alta que lo que "parece razonable", se ofrece un plan menor (menos horas de soporte) en lugar de bajar el precio por debajo del coste.
 
 ---
@@ -158,7 +161,7 @@ Se anota cada propuesta, ganada o perdida. Tras tres o cuatro entradas se buscan
 
 | Fecha | Cliente | Resultado | Razón (con sus palabras) | Qué hipótesis teníamos | Qué cambiamos |
 |---|---|---|---|---|---|
-| 2026-11 | Barbería Carlos | Perdido | "Había otra parecida que me gustó más, me costó decidirme". Eligió TuTurno (`tuturno.eu/cbarber`): solo una página de reservas, dentro de una plataforma para varias peluquerías | Ganó lo más simple: reservar "en menos de un minuto", sin web completa ni dominio que comprar. Tenía servicios "extra" (cejas, lavado) y cambios de horario de un día desde la agenda. No sabemos su precio | Opción básica "solo reservas", lista en un día. Añadir extras y cambios de un día desde la agenda. Vender la reserva, no la web |
+| 2026-11 | Barbería Carlos | Perdido | "Había otra parecida que me gustó más, me costó decidirme". Razones que dio: (1) "me ha gustado la forma que yo puedo editar todo sin pedírselo a él sobre los horarios y todo eso"; (2) "el precio, porque no tiene un costo mensual, es anual de mantenimiento". Eligió TuTurno (`tuturno.eu/cbarber`): solo una página de reservas, dentro de una plataforma para varias peluquerías | Ganó lo más simple: reservar "en menos de un minuto", sin web completa ni dominio que comprar. Tenía servicios "extra" (cejas, lavado) y cambios de horario de un día desde la agenda. No sabemos su precio | Opción básica "solo reservas", lista en un día. Añadir extras y cambios de un día desde la agenda. Vender la reserva, no la web. Titular: "lo cambias tú". Cobro anual como opción |
 
 ---
 
